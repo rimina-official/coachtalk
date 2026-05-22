@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c06080">
+<title>コーチトーク｜Rimina</title>
+<style>
+  :root {
+    --rose: #c06080;
+    --rose-light: #d48a9e;
+    --rose-deep: #8b3a5c;
+    --rose-soft: #e4b2c0;
+    --cream: #fdf2f6;
+    --pale-rose: #f7e3eb;
+    --gold: #d4af6e;
+    --text: #4a3540;
+    --text-soft: #7a6470;
+    --border: #ecd5dd;
+    --white: #ffffff;
+    --green: #5dba85;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    background: linear-gradient(180deg, var(--cream) 0%, #fffbfc 60%, #fff 100%);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-light) 100%);
+    color: var(--white);
+    padding: 38px 20px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+  }
+  .hero::before { top: -60px; right: -50px; width: 220px; height: 220px; }
+  .hero::after { bottom: -80px; left: -40px; width: 200px; height: 200px; opacity: 0.8; }
+  .brand-mini {
+    font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    font-size: 13px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    position: relative;
+  }
+  .hero .ic-large {
+    font-size: 52px;
+    margin: 4px 0 8px;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 4px 0 6px;
+    letter-spacing: 0.04em;
+    position: relative;
+  }
+  .hero .sub {
+    font-size: 13px;
+    opacity: 0.92;
+    position: relative;
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+
+  /* Free badge */
+  .free-banner {
+    background: linear-gradient(135deg, #fff5e6 0%, #fff8d6 100%);
+    border: 2px solid var(--gold);
+    color: var(--rose-deep);
+    text-align: center;
+    padding: 16px 20px;
+    margin: 20px 18px 8px;
+    border-radius: 16px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 14px rgba(212, 175, 110, 0.18);
+  }
+  .free-banner .lead {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .free-banner .main {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--rose-deep);
+  }
+  .free-banner .main .em {
+    background: linear-gradient(transparent 60%, #ffe9a8 60%);
+    padding: 0 6px;
+  }
+  .free-banner .small {
+    display: block;
+    font-size: 12px;
+    color: var(--text-soft);
+    margin-top: 4px;
+  }
+
+  /* Wrap */
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 18px 18px 0;
+  }
+  section { margin-bottom: 26px; }
+  section h2 {
+    font-size: 18px;
+    margin: 0 0 14px;
+    color: var(--rose-deep);
+    border-left: 4px solid var(--rose);
+    padding-left: 12px;
+    line-height: 1.4;
+  }
+  section .lead {
+    font-size: 13px;
+    color: var(--text-soft);
+    margin: -6px 0 14px 16px;
+  }
+
+  /* Topic cards (2x2) */
+  .topics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .topic {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .topic .ic {
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+  .topic .title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--rose-deep);
+    margin: 4px 0 2px;
+    line-height: 1.4;
+  }
+  .topic .desc {
+    font-size: 11px;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* Coach grid (3x2) */
+  .coaches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .coach {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 8px 12px;
+    text-align: center;
+  }
+  .coach .avatar {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose-light) 0%, var(--rose) 100%);
+    color: #fff;
+    font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .coach .name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.05em;
+  }
+  .coach.designated {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+    border-style: dashed;
+  }
+  .coach.designated .avatar {
+    background: var(--text-soft);
+  }
+
+  /* Detail card */
+  .detail {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 20px;
+  }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border);
+    gap: 12px;
+  }
+  .detail-row:last-child { border-bottom: 0; }
+  .detail-row .label {
+    font-size: 13px;
+    color: var(--text-soft);
+    font-weight: 700;
+    flex-shrink: 0;
+    min-width: 100px;
+  }
+  .detail-row .value {
+    font-size: 14px;
+    color: var(--text);
+    text-align: right;
+    flex: 1;
+  }
+  .detail-row .value .price {
+    font-weight: 800;
+    color: var(--rose-deep);
+  }
+
+  /* CTA */
+  .cta-box {
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    border-radius: 22px;
+    padding: 26px 22px;
+    text-align: center;
+    color: #fff;
+    margin: 30px 0;
+    box-shadow: 0 6px 20px rgba(139, 58, 92, 0.22);
+  }
+  .cta-box h3 {
+    font-size: 18px;
+    margin: 0 0 8px;
+    font-weight: 800;
+  }
+  .cta-box p {
+    font-size: 13px;
+    opacity: 0.95;
+    margin: 0 0 16px;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #fff;
+    color: var(--rose-deep);
+    font-weight: 800;
+    font-size: 16px;
+    padding: 14px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+    width: 100%;
+    max-width: 340px;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.06);
+    transition: transform 0.1s;
+  }
+  .cta-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+  .cta-btn .ic { font-size: 20px; }
+  .cta-sub {
+    margin-top: 12px;
+    font-size: 11px;
+    opacity: 0.85;
+  }
+
+  /* Notes */
+  .notes {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 20px;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .notes h3 {
+    font-size: 14px;
+    color: var(--rose-deep);
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+  .notes ul {
+    margin: 0;
+    padding-left: 18px;
+    line-height: 1.8;
+  }
+  .notes li { margin-bottom: 6px; }
+  .notes li:last-child { margin-bottom: 0; }
+  .notes strong { color: var(--rose-deep); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 22px 18px 0;
+    color: var(--text-soft);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  footer .company {
+    color: var(--rose-deep);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  footer a { color: var(--rose-deep); }
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="brand-mini">RIMINA</div>
+  <div class="ic-large">💬</div>
+  <h1>コーチトーク</h1>
+  <div class="sub">
+    レッスンとは別に、コーチと1対1で<br>
+    じっくり相談できる個別カウンセリング
+  </div>
+</div>
+
+<!-- ===== Free banner ===== -->
+<div class="free-banner">
+  <span class="lead">月1回まで</span>
+  <div class="main"><span class="em">無料</span>でご利用いただけます</div>
+  <span class="small">2回目以降のご利用は1回 ¥2,200（税込）</span>
+</div>
+
+<div class="wrap">
+
+  <!-- ========== 相談内容 ========== -->
+  <section>
+    <h2>こんなことが相談できます</h2>
+    <p class="lead">どんなテーマでも大丈夫。あなたが話したいことを話してください。</p>
+    <div class="topics">
+      <div class="topic">
+        <div class="ic">🎯</div>
+        <div class="title">目標設定・進捗</div>
+        <div class="desc">体重・体型の目標設定、達成までの伴走</div>
+      </div>
+      <div class="topic">
+        <div class="ic">🍽️</div>
+        <div class="title">食事・生活習慣</div>
+        <div class="desc">食事の整え方、睡眠・タイミングの相談</div>
+      </div>
+      <div class="topic">
+        <div class="ic">🧘</div>
+        <div class="title">フォーム・身体</div>
+        <div class="desc">レッスンでは見きれない細かな動きの確認</div>
+      </div>
+      <div class="topic">
+        <div class="ic">💭</div>
+        <div class="title">メンタル・継続</div>
+        <div class="desc">続かない・自分への不安などのモヤモヤ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== コーチ ========== -->
+  <section>
+    <h2>コーチを選べます</h2>
+    <p class="lead">推しのコーチや、相談内容に合うコーチを指名できます。</p>
+    <div class="coaches">
+      <div class="coach"><div class="avatar">N</div><div class="name">NORI</div></div>
+      <div class="coach"><div class="avatar">A</div><div class="name">ARISA</div></div>
+      <div class="coach"><div class="avatar">K</div><div class="name">KEI</div></div>
+      <div class="coach"><div class="avatar">S</div><div class="name">SAYA</div></div>
+      <div class="coach"><div class="avatar">Y</div><div class="name">YUKI</div></div>
+      <div class="coach"><div class="avatar">KW</div><div class="name">KAWAHARA</div></div>
+      <div class="coach designated" style="grid-column: span 3;">
+        <div class="avatar">？</div>
+        <div class="name">おまかせ（Riminaが選定）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 詳細 ========== -->
+  <section>
+    <h2>ご利用詳細</h2>
+    <div class="detail">
+      <div class="detail-row">
+        <span class="label">⏱ 時間</span>
+        <span class="value">30分</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">📍 場所</span>
+        <span class="value">オンライン（Zoom）</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">💰 料金</span>
+        <span class="value">
+          <span class="price">月1回まで無料</span><br>
+          <span style="font-size:12px; color:var(--text-soft);">2回目以降：1回 ¥2,200（税込）</span>
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="label">📅 日時</span>
+        <span class="value">ご希望日時を伺ってコーチと調整</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">🎯 対象</span>
+        <span class="value">Rimina会員さま</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <div class="cta-box">
+    <h3>コーチトークを申し込む</h3>
+    <p>下記フォームから日程・希望コーチ・相談内容をお知らせください。</p>
+    <a class="cta-btn" id="form-btn" href="https://forms.gle/gcd82NLzoEqwyYtk7" target="_blank" rel="noopener">
+      <span class="ic">📝</span>申込フォームへ
+    </a>
+    <div class="cta-sub">フォームは別ウィンドウで開きます</div>
+  </div>
+
+  <!-- ========== Notes ========== -->
+  <div class="notes">
+    <h3>📝 ご利用にあたって</h3>
+    <ul>
+      <li><strong>月1回無料</strong>のカウントは、毎月1日にリセットされます。</li>
+      <li>2回目以降の料金（<strong>¥2,200/回</strong>）は、後日Riminaチームより決済方法をご案内します。</li>
+      <li>ご希望日時はなるべく<strong>3つほど候補</strong>をいただけるとスムーズです。</li>
+      <li>コーチの予定により、ご希望のコーチで調整できない場合があります。その際は別コーチをご提案します。</li>
+      <li>キャンセル・日程変更は<strong>開始24時間前まで</strong>にLINEからご連絡ください。</li>
+      <li>ご不明点はLINEトークまたは <a href="mailto:rimina@builds.ventures">rimina@builds.ventures</a> まで。</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <div class="company">Rimina</div>
+  運営：株式会社Builds<br>
+  お問い合わせ：<a href="mailto:rimina@builds.ventures">rimina@builds.ventures</a>
+</footer>
+
+</body>
+</html>
